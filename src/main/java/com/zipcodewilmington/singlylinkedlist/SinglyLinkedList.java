@@ -13,8 +13,8 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     public Node<T> getTail() {return tail;}
     public void setTail(Node<T> tail) {this.tail = tail;}
     public SinglyLinkedList() {this.head = null;}
-    public void add(T data) {
-        Node<T> node = new Node<T>(data);
+    public void add(T element) {
+        Node<T> node = new Node<T>(element);
 
         if (head == null){ head = node;}
         else {
@@ -35,14 +35,69 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return temp.getValue();
     }
 
-    public boolean contains(T data){
+    public boolean contains(T element){
         int counter = 0;
         Node<T> temp = head;
 
-        while (temp.getValue() != data) {
+        while (temp != null) {
+            if (temp.getValue().equals(element)){return true;}
+            else {temp = temp.getNextNode();
+                counter++;}
+        }
+        return false;
+    }
+
+    public int find(T element){
+        int counter = 0;
+        Node<T> temp = head;
+
+        while (temp != null) {
+            if (temp.getValue().equals(element)) {return counter;}
+            else {temp = temp.getNextNode();
+                counter++;}
+        }
+        return -1;
+    }
+
+    public int size(){
+        int counter = 0;
+        Node<T> temp = head;
+
+        while (temp != null){
             temp = temp.getNextNode();
             counter++;
         }
-        return temp.getValue().equals(data);
+        return counter;
     }
+
+    public SinglyLinkedList<T> copy(){
+        SinglyLinkedList<T> copiedList = new SinglyLinkedList<>();
+        Node<T> temp = head;
+
+        while (temp != null){
+            copiedList.add(temp.getValue());
+            temp = temp.getNextNode();
+        }
+        return copiedList;
+    }
+
+    public void remove(int index) {
+
+        if (index == 0) {
+            this.setHead(head.getNextNode());
+        } else {
+            int counter = 0;
+            Node<T> temp = head;
+            while (counter != index - 1) {
+                temp = temp.getNextNode();
+                counter++;
+            }
+            if (temp.getNextNode().getNextNode() == null) {
+                temp.setNextNode(null);
+                setTail(temp);
+            } else temp.setNextNode(temp.getNextNode().getNextNode());
+        }
+        size--;
+    }
+
 }
