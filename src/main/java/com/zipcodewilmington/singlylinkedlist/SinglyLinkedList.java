@@ -81,6 +81,21 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return copiedList;
     }
 
+    public boolean equals(SinglyLinkedList<T> listToCompare){
+        Node<T> temp1 = head;
+        Node<T> temp2 = listToCompare.getHead();
+
+        if (this.size() != listToCompare.size()){return false;}
+        else{
+            while (temp1 != null){
+                if (!temp1.getValue().equals(temp2.getValue())) {return false;}
+                temp1 = temp1.getNextNode();
+                temp2 = temp2.getNextNode();
+            }
+            return true;
+        }
+    }
+
     public void remove(int index) {
 
         if (index == 0) {
@@ -98,6 +113,29 @@ public class SinglyLinkedList<T extends Comparable<T>> {
             } else temp.setNextNode(temp.getNextNode().getNextNode());
         }
         size--;
+    }
+
+    public void sort(){
+        boolean changed = false;
+        Node<T> temp = head;
+        Node<T> next = temp.getNextNode();
+        int len = size();
+        for(int i = 0; i < len; i++){
+            while(next != null){
+                if(temp.getValue().compareTo(next.getValue()) > 0){
+                    //bubble sort
+                    T temp2 = temp.getValue();
+                    temp.setValue(next.getValue());
+                    next.setValue(temp2);
+                    changed = true;
+                }
+                temp = next;
+                next = temp.getNextNode();
+            }
+            if(!changed) break; //no more to change, break
+            temp = head;
+            next = temp.getNextNode();
+        }
     }
 
 }

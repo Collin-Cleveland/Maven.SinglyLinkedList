@@ -144,7 +144,7 @@ public class SinglyLinkedListTest {
 
         SinglyLinkedList<Integer> actual = sll.copy();
 
-        Assert.assertTrue(actual.equals(sll));
+        Assert.assertTrue(sll.equals(actual));
     }
 
     @Test
@@ -184,6 +184,32 @@ public class SinglyLinkedListTest {
         sll.remove(2 );
 
         Assert.assertFalse(sll.contains(3));
+    }
+
+    @Test
+    public void testSort(){
+        SinglyLinkedList<Integer> sll = new SinglyLinkedList<>();
+        SinglyLinkedList<Integer> sort = new SinglyLinkedList<>();
+
+        sll.add(245);
+        sll.add(123);
+        sll.add(334);
+
+        sort.add(123);
+        sort.add(245);
+        sort.add(334);
+
+        sll.sort();
+
+//        System.out.println(sll.getHead().getValue());
+//        System.out.println(sll.getHead().getNextNode().getValue());
+//        System.out.println(sll.getHead().getNextNode().getNextNode().getValue());
+//
+//        System.out.println(sort.getHead().getValue());
+//        System.out.println(sort.getHead().getNextNode().getValue());
+//        System.out.println(sort.getHead().getNextNode().getNextNode().getValue());
+
+        Assert.assertTrue(sll.equals(sort));
     }
 
 }
